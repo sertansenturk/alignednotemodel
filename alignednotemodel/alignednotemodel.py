@@ -1,10 +1,16 @@
 import numpy as np
 import PitchDistribution
 
-def getModels(pitch, alignednotes, kernel_width=2.5):
+import pdb
+
+def getModels(pitch, alignednotes, tonic, kernel_width=2.5):
 	noteNames = set(an['Symbol'] for an in alignednotes)
 	noteModels = dict((nn, {'notes':[], 'distribution':[], 
 		'stablepitch':[]}) for nn in noteNames)
+
+	# get the complete histogram
+	noteModels['all'] = {'distribution':getModelDistribution(pitch[:,1]), 
+						'notes':None, 'stablepitch': None}
 
 	# compute note trajectories and add to each model
 	for an in alignednotes:
@@ -17,22 +23,29 @@ def getModels(pitch, alignednotes, kernel_width=2.5):
 
 	# compute the histogram for each model
 	for key in noteModels.keys():
-		tempPitchVals = np.hstack(nn['trajectory'][:,1] 
-			for nn in noteModels[key]['notes'])
+		if not key == 'all':
+			tempPitchVals = np.hstack(nn['trajectory'][:,1] 
+				for nn in noteModels[key]['notes'])
 
-		noteModels[key]['distribution']=getModelDistribution(tempPitchVals)
+			noteModels[key]['distribution']=getModelDistribution(tempPitchVals)
 
-	# get the stable pitch
+			# get the stable pitch
+			theoreticalpeak = noteModels[key]['notes'][0]['Pitch']['Value']
+			peakCandIdx = noteModels[key]['distribution'].detect_peaks()[0]
+			peakCandFreqs = [noteModels[key]['distribution'].bins[i] for i in peakCandIdx]
 
-	# get the complete histogram
-	noteModels['all'] = {'distribution':getModelDistribution(pitch[:,1]), 
-						'notes':None, 'stablepitch': None}
+			peakCandCents = PitchDistribution.hz_to_cent(peakCandFreqs, tonic)
+			minId = abs(peakCandCents - theoreticalpeak).argmin()
+			noteModels[key]['stablepitch'] = peakCandFreqs[minId]
 
-	# scale according to relative usage of each note
-	#for key in noteModels.keys():
-	#	noteModels[key]['distribution'].vals = (noteModels[key]['distribution'].vals 
-	#		* noteModels[key]['numsamples'] / totalNumSamples)
-
+			# scale according to relative usage of each note
+			stablepitchVal = noteModels[key]['distribution'].vals[peakCandIdx[minId]]
+			allhistbin_id = abs(PitchDistribution.hz_to_cent(
+				noteModels['all']['distribution'].bins,peakCandFreqs[minId])).argmin()
+			allhistval = noteModels['all']['distribution'].vals[allhistbin_id]
+			noteModels[key]['distribution'].vals = (noteModels[key]['distribution'].vals
+				* allhistval / stablepitchVal)
+			
 	return noteModels
 
 def getModelDistribution(pitchVals, kernel_width=2.5):
