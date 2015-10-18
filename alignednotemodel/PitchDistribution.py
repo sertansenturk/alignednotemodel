@@ -6,6 +6,7 @@ import json
 import os
 from scipy.integrate import simps
 from scipy.stats import norm
+import matplotlib.pyplot as plt
 
 def load(fname):
 	"""-------------------------------------------------------------------------
@@ -17,9 +18,7 @@ def load(fname):
 		dist = json.load(f)
 
 	return PitchDistribution(np.array(dist[0]['bins']), np.array(dist[0]['vals']),
-		                     kernel_width=dist[0]['kernel_width'],
-		                     source=dist[0]['source'], ref_freq=dist[0]['ref_freq'],
-		                     segment=dist[0]['segmentation'], overlap=dist[0]['overlap'])
+		                     kernel_width=dist[0]['kernel_width'], ref_freq=dist[0]['ref_freq'])
 
 class PitchDistribution:
 	
@@ -58,9 +57,8 @@ class PitchDistribution:
 		save_dir : Pathway of where the JSON would saved
 		-------------------------------------------------------------------------"""
 		dist_json = [{'bins':self.bins.tolist(), 'vals':self.vals.tolist(),
-		              'kernel_width':self.kernel_width, 'source':self.source,
-		              'ref_freq':self.ref_freq, 'segmentation':self.segmentation,
-		              'overlap':self.overlap, 'step_size':self.step_size}]
+		              'kernel_width':self.kernel_width, 'ref_freq':self.ref_freq, 
+		              'step_size':self.step_size}]
 		with open(os.path.join(save_dir, fname), 'w') as f:
 			json.dump(dist_json, f, indent=2)
 			f.close()
@@ -115,17 +113,18 @@ class PitchDistribution:
 					shifted_vals = np.concatenate((np.zeros(abs(shift_idx)), self.vals[:shift_idx]))
 
 			return PitchDistribution(self.bins, shifted_vals, kernel_width=self.kernel_width,
-				                     source=self.source, ref_freq=self.ref_freq,
-				                     segment=self.segmentation, overlap=self.overlap)
+				ref_freq=self.ref_freq)
 		
 		# If a zero sample shift is requested, a copy of the original distribution
 		# is returned
 		else:
 			return PitchDistribution(self.bins, self.vals, kernel_width=self.kernel_width,
-				                     source=self.source, ref_freq=self.ref_freq,
-				                     segment=self.segmentation, overlap=self.overlap)
+				ref_freq=self.ref_freq)
 
-def generate_pd(cent_track, ref_freq=440, smooth_factor=7.5, step_size=7.5):
+	def plot(self):
+		plt.plot(self.bins, self.vals)
+
+def generate_pd(cent_track, ref_freq=440, kernel_width=7.5, step_size=7.5):
 	"""-------------------------------------------------------------------------
 	Given the pitch track in the unit of cents, generates the Pitch Distribution
 	of it. the pitch track from a text file. 0th column is the time-stamps and
@@ -135,51 +134,45 @@ def generate_pd(cent_track, ref_freq=440, smooth_factor=7.5, step_size=7.5):
 	ref_freq:       Reference frequency used while converting Hz values to cents.
 	                This number isn't used in the computations, but is to be
 	                recorded in the PitchDistribution object.
-	smooth_factor:  The standard deviation of the gaussian kernel, used in Kernel
+	kernel_width:  The standard deviation of the gaussian kernel, used in Kernel
 	                Density Estimation. If 0, a histogram is given
 	step_size:        The step size of the Pitch Distribution bins.
-	source:	        The source information (i.e. recording name/id) to be stored
-	                in PitchDistribution object.
-	segment:        Stores which part of the recording, the distribution belongs
-	                to. It stores the endpoints in seconds, such as [0,60].
-	                This is only useful for Chordia Estimation. 	
-	overlap:        The ratio of overlap (hop size / chunk size) to be stored. 
-	                This is only useful for Chordia Estimation.
 	-------------------------------------------------------------------------"""
 
 	### Some extra interval is added to the beginning and end since the
-	### superposed Gaussian for smooth_factor would introduce some tails in the
-	### ends. These vanish after 3 sigmas(=smmoth_factor).
+	### superposed Gaussian for kernel_width would introduce some tails in the
+	### ends. These vanish after 3 sigmas(=kernel_width).
 
 	### The limits are also quantized to be a multiple of chosen step-size
-	### smooth_factor = standard deviation fo the gaussian kernel
+	### kernel_width = standard deviation fo the gaussian kernel
 
 	### TODO: filter out the NaN, -infinity and +infinity from the pitch track
 
 	# Finds the endpoints of the histogram edges. Histogram bins will be
 	# generated as the midpoints of these edges. 
-	min_edge = min(cent_track) - (step_size / 2.0)
-	max_edge = max(cent_track) + (step_size / 2.0)
+	min_edge = min(cent_track) - (step_size / 2.0) - kernel_width*3
+	max_edge = max(cent_track) + (step_size / 2.0) + kernel_width*3
 	pd_edges = np.concatenate([np.arange(-step_size/2.0, min_edge, -step_size)[::-1],
 	                           np.arange(step_size/2.0, max_edge, step_size)])
 
-	# An exceptional case is when min_bin and max_bin are both positive
-	# In this case, pd_edges would be in the range of [step_size/2, max_bin].
-	# If so, a -step_size is inserted to the head, to make sure 0 would be
-	# in pd_bins. The same procedure is repeated for the case when both
-	# are negative. Then, step_size is inserted to the tail.
-	pd_edges = pd_edges if -step_size/2.0 in pd_edges else np.insert(pd_edges, 0, -step_size/2.0)
-	pd_edges = pd_edges if step_size/2.0 in pd_edges else np.append(pd_edges, step_size/2.0)
+	# An exceptional case is when min_bin and max_bin are both positive or negative
+	# In this case, remove unnecessary bins
 
+	if min_edge > 0:
+		pd_edges = [e for e in pd_edges if e >= min_edge]
+
+	if max_edge < 0:
+		pd_edges = [e for e in pd_edges if e <= max_edge]
+	
 	# Generates the histogram and bins (i.e. the midpoints of edges)
 	pd_vals, pd_edges = np.histogram(cent_track, bins=pd_edges, density=True)
 	pd_bins = np.convolve(pd_edges, [0.5,0.5])[1:-1]
 
-	if smooth_factor > 0: # kernel density estimation (approximated)
+	if kernel_width > 0: # kernel density estimation (approximated)
 		# smooth the histogram
-		normal_dist = norm(loc = 0, scale = smooth_factor)
-		xn = np.concatenate([np.arange(0, - 5 * smooth_factor, -step_size)[::-1], 
-		    np.arange(step_size, 5 * smooth_factor, step_size)])
+		normal_dist = norm(loc = 0, scale = kernel_width)
+		xn = np.concatenate([np.arange(0, - 5 * kernel_width, -step_size)[::-1], 
+		    np.arange(step_size, 5 * kernel_width, step_size)])
 		sampled_norm = normal_dist.pdf(xn)
 
 		extra_num_bins = len(sampled_norm)/2 # convolution generates tails
@@ -195,7 +188,7 @@ def generate_pd(cent_track, ref_freq=440, smooth_factor=7.5, step_size=7.5):
 		raise ValueError('Lengths of bins and Vals are different')
 
 	# Initializes the PitchDistribution object and returns it.
-	return pD.PitchDistribution(pd_bins, pd_vals, kernel_width=smooth_factor, ref_freq=ref_freq)
+	return PitchDistribution(pd_bins, pd_vals, kernel_width=kernel_width, ref_freq=ref_freq)
 
 def generate_pcd(pd):
 	"""-------------------------------------------------------------------------
