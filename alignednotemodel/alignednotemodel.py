@@ -1,8 +1,6 @@
 import numpy as np
 import PitchDistribution
 
-import pdb
-
 def getModels(pitch, alignednotes, tonic, kernel_width=2.5):
 	noteNames = set(an['Symbol'] for an in alignednotes)
 	noteModels = dict((nn, {'notes':[], 'distribution':[], 
@@ -45,7 +43,7 @@ def getModels(pitch, alignednotes, tonic, kernel_width=2.5):
 			allhistval = noteModels['all']['distribution'].vals[allhistbin_id]
 			noteModels[key]['distribution'].vals = (noteModels[key]['distribution'].vals
 				* allhistval / stablepitchVal)
-			
+
 	return noteModels
 
 def getModelDistribution(pitchVals, kernel_width=2.5):

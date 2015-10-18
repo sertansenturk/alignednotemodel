@@ -7,5 +7,5 @@ setup(name='aligned-note-models',
       description='Tools to compute models for notes from audio-score alignment results',
       author='Sertan Senturk',
       url='http://sertansenturk.com',
-      packages=['alignednotemodels'],
+      packages=['alignednotemodel'],
 )
