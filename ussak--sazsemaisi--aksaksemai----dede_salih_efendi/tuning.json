@@ -1,0 +1,102 @@
+{
+	"scoreInformed": {
+		"scaleDegree": [
+			[
+				{
+					"noteSymbol": "G4",
+					"frequency": 166.8279843,
+					"theoretical": -203.7735849,
+					"performed": -200,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "A4",
+					"frequency": 334.2346515,
+					"theoretical": 0,
+					"performed": 0,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "B4b1",
+					"frequency": 182.7698344,
+					"theoretical": 181.1320755,
+					"performed": 158,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "C5",
+					"frequency": 366.5969148,
+					"theoretical": 294.3396226,
+					"performed": 286,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "D5",
+					"frequency": 196.7951471,
+					"theoretical": 498.1132075,
+					"performed": 504,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "E5",
+					"frequency": 395.6417419,
+					"theoretical": 701.8867925,
+					"performed": 713,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "F5",
+					"frequency": 223.2037571,
+					"theoretical": 792.4528302,
+					"performed": 795,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "F5#4",
+					"frequency": 251.8435841,
+					"theoretical": 883.0188679,
+					"performed": 879,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "G5",
+					"frequency": 264.0591825,
+					"theoretical": 996.2264151,
+					"performed": 998,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "A5",
+					"frequency": 277.1873294,
+					"theoretical": 1200,
+					"performed": 1203,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "B5b1",
+					"frequency": 148.6268373,
+					"theoretical": 1381.132075,
+					"performed": 1363,
+					"isSwitched": 1
+				},
+				{
+					"noteSymbol": "C6",
+					"frequency": 296.910472,
+					"theoretical": 1494.339623,
+					"performed": 1495,
+					"isSwitched": 1
+				}
+			]
+		],
+		"deviationStats": {
+			"values": [0,-3,23.13207547,18.13207547,8.339622642,-0.6603773585,-5.886792453,-11.11320755,-2.547169811,4.018867925,-3.773584906,-1.773584906],
+			"absoluteMean": 2.072327044,
+			"absoluteStd": 9.952152053,
+			"absoluteMedian": -1.216981132
+		},
+		"unit": "cent",
+		"octaveWrapped": 0,
+		"tonicSymbol": "A4",
+		"source": "./data/ussak--sazsemaisi--aksaksemai----dede_salih_efendi/e72db0ad-2ed9-467b-88ae-1f91edcd2c59/e72db0ad-2ed9-467b-88ae-1f91edcd2c59.wav"
+	}
+}
