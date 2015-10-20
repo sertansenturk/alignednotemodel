@@ -1,6 +1,7 @@
 import numpy as np
 import PitchDistribution
-import pdb
+import matplotlib.pyplot as plt
+
 def getModels(pitch, alignednotes, tonic, tuning, kernel_width=2.5):
 	pitch = np.array(pitch)
 
@@ -82,3 +83,34 @@ def getModelDistribution(pitchVals, kernel_width=2.5):
 		dummyFreq)
 
 	return distribution
+
+def plot(noteModels, pitchDistibution, alignednotes, pitch, tonic):
+	pitch = np.array(pitch)
+
+	fig, (ax1, ax2) = plt.subplots(1,2,sharey=True)
+	ax1.plot(pitch[:,0], pitch[:,1], 'g', label='Pitch', alpha = 0.7)
+	fig.subplots_adjust(wspace=0)
+	ax1.set_xlabel('Time (sec)')
+	ax1.yaxis.grid(True)
+	for note in alignednotes:
+	    ax1.plot(note['Interval'], PitchDistribution.cent_to_hz(
+	            [note['Pitch']['Value'], note['Pitch']['Value']], tonic['Value']), 
+	            'r', alpha=0.4, linewidth=4) 
+
+	ax2.plot(pitchDistibution.vals, pitchDistibution.bins, '-.', color='#606060')
+	for key in noteModels.keys():
+	    ax2.plot(noteModels[key]['distribution']['vals'], noteModels[key]['distribution']['bins'], 
+	             label=key)
+
+	ax2.set_yticklabels(noteModels.keys())
+	ax2.set_yticks([nm['stablepitch']['Value'] for nm in noteModels.values()])
+	ax2.axis('off')
+	ax2.yaxis.grid(True)
+
+	ax2.set_xticklabels([])
+	ax2.spines['top'].set_visible(False)
+	ax2.spines['right'].set_visible(False)
+	ax2.spines['bottom'].set_visible(False)
+	ax2.spines['left'].set_visible(False)
+
+	return fig, (ax1, ax2)
