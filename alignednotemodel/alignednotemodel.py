@@ -1,7 +1,9 @@
 import numpy as np
 import PitchDistribution
-
+import pdb
 def getModels(pitch, alignednotes, tonic, tuning, kernel_width=2.5):
+	pitch = np.array(pitch)
+
 	noteNames = set(an['Symbol'] for an in alignednotes)
 	noteModels = dict((nn, {'notes':[], 'distribution':[], 
 		'stablepitch':[], 'interval': []}) for nn in noteNames)
@@ -12,23 +14,28 @@ def getModels(pitch, alignednotes, tonic, tuning, kernel_width=2.5):
 	# compute note trajectories and add to each model
 	for an in alignednotes:
 		if not an['Interval'][0] == an['Interval'][1]:  # not aligned
-			
 			an['trajectory'] = np.vstack(p for p in pitch 
 				if an['Interval'][0] <= p[0] <= an['Interval'][1])
 
 			noteModels[an['Symbol']]['notes'].append(an)
+
+	# remove moels without any alinged note
+	for key in noteModels.keys():
+		if not noteModels[key]['notes']:
+			noteModels.pop(key, None)
 
 	# compute the histogram for each model
 	for key in noteModels.keys():
 		tempPitchVals = np.hstack(nn['trajectory'][:,1] 
 			for nn in noteModels[key]['notes'])
 
-		noteModels[key]['distribution']=getModelDistribution(tempPitchVals)
+		distribution=getModelDistribution(tempPitchVals,
+			kernel_width=kernel_width)
 
 		# get the stable pitch
 		theoreticalpeak = noteModels[key]['notes'][0]['Pitch']['Value']
-		peakCandIdx = noteModels[key]['distribution'].detect_peaks()[0]
-		peakCandFreqs = [noteModels[key]['distribution'].bins[i] for i in peakCandIdx]
+		peakCandIdx = distribution.detect_peaks()[0]
+		peakCandFreqs = [distribution.bins[i] for i in peakCandIdx]
 
 		peakCandCents = PitchDistribution.hz_to_cent(peakCandFreqs, tonic['Value'])
 		minId = abs(peakCandCents - theoreticalpeak).argmin()
@@ -36,12 +43,19 @@ def getModels(pitch, alignednotes, tonic, tuning, kernel_width=2.5):
 			'Unit': 'cent'}
 
 		# scale according to relative usage of each note
-		stablepitchVal = noteModels[key]['distribution'].vals[peakCandIdx[minId]]
+		stablepitchVal = distribution.vals[peakCandIdx[minId]]
 		allhistbin_id = abs(PitchDistribution.hz_to_cent(
 			recordingDistribution.bins,peakCandFreqs[minId])).argmin()
 		allhistval = recordingDistribution.vals[allhistbin_id]
-		noteModels[key]['distribution'].vals = (noteModels[key]['distribution'].vals
-			* allhistval / stablepitchVal)
+		distribution.vals = (distribution.vals * allhistval / stablepitchVal)
+
+		# convert the object to dict for json serialization
+		noteModels[key]['distribution'] = {'vals':distribution.vals.tolist(),
+										   'bins':distribution.bins.tolist()}
+
+		# convert numpy arrays to lists for json serialization
+		for nn in noteModels[key]['notes']:
+			nn['trajectory'] = nn['trajectory'].tolist()
 
 	# the tonic might be updated
 
