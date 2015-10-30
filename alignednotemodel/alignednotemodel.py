@@ -102,9 +102,10 @@ def plot(noteModels, pitchDistibution, alignednotes, pitch, tonic):
 	    ax2.plot(noteModels[key]['distribution']['vals'], noteModels[key]['distribution']['bins'], 
 	             label=key)
 
-	ax2.set_yticklabels(noteModels.keys())
 	ax2.set_yticks([nm['stablepitch']['Value'] for nm in noteModels.values()])
+	ax2.set_yticklabels([key + ', ' + "%.1f" % nm['stablepitch']['Value'] + ' Hz' for key, val in noteModels.iteritems()])
 	ax2.axis('off')
+	ax2.set_ylim([np.min(pitchDistibution.bins),np.max(pitchDistibution.bins)])
 	ax2.yaxis.grid(True)
 
 	ax2.set_xticklabels([])
