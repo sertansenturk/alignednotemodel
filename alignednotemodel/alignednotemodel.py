@@ -59,17 +59,16 @@ def getModels(pitch, alignednotes, tonic, tuning, kernel_width=2.5):
 			nn['trajectory'] = nn['trajectory'].tolist()
 
 	# the tonic might be updated
-
-	tonicFreq = noteModels[tuning['tonicSymbol']]['stablepitch']['Value']
-	newtonic = {'alignment': {'Value': tonicFreq, 'Unit': 'Hz', 
+	newtonicfreq = noteModels[tuning['tonicSymbol']]['stablepitch']['Value']
+	newtonic = {'alignment': {'Value': newtonicfreq, 'Unit': 'Hz', 
 				'Method': 'alignedNoteModel', 'OctaveWrapped': False, 
 				'Citation': 'SenturkPhDThesis'}}
 
 	# get the distances wrt tonic
 	for nm in noteModels.values():
-		interval = PitchDistribution.cent_to_hz(nm['stablepitch']['Value'],
-			tonic['Value'])
-		nm['interval'] = {'Value': interval, 'Unit': 'cent'}
+		interval = PitchDistribution.hz_to_cent(nm['stablepitch']['Value'],
+			newtonicfreq)
+		nm['interval'] = {'Value': interval[0], 'Unit': 'cent'}
 
 	return noteModels, recordingDistribution, newtonic
 
@@ -103,7 +102,10 @@ def plot(noteModels, pitchDistibution, alignednotes, pitch, tonic):
 	             label=key)
 
 	ax2.set_yticks([nm['stablepitch']['Value'] for nm in noteModels.values()])
-	ax2.set_yticklabels([key + ', ' + "%.1f" % nm['stablepitch']['Value'] + ' Hz' for key, val in noteModels.iteritems()])
+	ax2.set_yticklabels([key + ', ' + 
+		"%.1f" % val['stablepitch']['Value'] + ' Hz, ' +
+		"%.1f" % val['interval']['Value'] + ' cents'
+		for key, val in noteModels.iteritems()])
 	ax2.axis('off')
 	ax2.set_ylim([np.min(pitchDistibution.bins),np.max(pitchDistibution.bins)])
 	ax2.yaxis.grid(True)
