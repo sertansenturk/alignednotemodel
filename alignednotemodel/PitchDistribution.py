@@ -235,4 +235,4 @@ def cent_to_hz(cent_track, ref_freq):
 	-------------------------------------------------------------------------"""
 	cent_track = np.array(cent_track)
 
-	return 2 ** (cent_track / 1200) * ref_freq
+	return 2 ** (cent_track / 1200.0) * ref_freq
