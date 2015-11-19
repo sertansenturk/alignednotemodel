@@ -219,7 +219,10 @@ def hz_to_cent(hz_track, ref_freq):
 	hz_track : The 1-D array of Hertz values
 	ref_freq	: Reference frequency for cent conversion
 	-------------------------------------------------------------------------"""
-	hz_track = np.array(hz_track)
+	if type(hz_track)==list:
+		hz_track = np.array(hz_track)
+	else:
+		hz_track = np.array([hz_track])
 
 	# The 0 Hz values are removed, not only because they are meaningless,
 	# but also logarithm of 0 is problematic.
