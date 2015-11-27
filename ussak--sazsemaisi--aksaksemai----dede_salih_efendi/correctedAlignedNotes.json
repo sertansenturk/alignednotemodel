@@ -1,0 +1,612 @@
+{
+    "notes": [
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                0.789478458, 
+                1.439637188
+            ], 
+            "Label": "1-HANE_1--n1", 
+            "PerformedPitch": {
+                "Value": 166.44015502929688, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 1, 
+            "IndexInAudio": 1, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 148.3032271, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "G4", 
+            "Interval": [
+                1.532517007, 
+                1.9969161
+            ], 
+            "Label": "1-HANE_1--n2", 
+            "PerformedPitch": {
+                "Value": 148.11012268066406, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 2, 
+            "IndexInAudio": 2, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                2.089795918, 
+                3.065034014
+            ], 
+            "Label": "1-HANE_1--n3", 
+            "PerformedPitch": {
+                "Value": 166.44015502929688, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 3, 
+            "IndexInAudio": 3, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 222.4460763, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "D5", 
+            "Interval": [
+                3.157913832, 
+                3.343673469
+            ], 
+            "Label": "1-HANE_1--n4", 
+            "PerformedPitch": {
+                "Value": 225.33741760253906, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 4, 
+            "IndexInAudio": 4, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 197.7454268, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "C5", 
+            "Interval": [
+                3.390113379, 
+                3.482993197
+            ], 
+            "Label": "1-HANE_1--n5", 
+            "PerformedPitch": {
+                "Value": 197.9318084716797, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 5, 
+            "IndexInAudio": 5, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 185.228322, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "B4b1", 
+            "Interval": [
+                3.622312925, 
+                3.854512472
+            ], 
+            "Label": "1-HANE_1--n6", 
+            "PerformedPitch": {
+                "Value": 182.13441467285156, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 6, 
+            "IndexInAudio": 6, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                3.94739229, 
+                4.086712018
+            ], 
+            "Label": "1-HANE_1--n7", 
+            "PerformedPitch": {
+                "Value": 171.96170806884766, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 7, 
+            "IndexInAudio": 7, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 148.3032271, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "G4", 
+            "Interval": [
+                4.133151927, 
+                5.712108844
+            ], 
+            "Label": "1-HANE_1--n8", 
+            "PerformedPitch": {
+                "Value": 148.71018981933594, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 8, 
+            "IndexInAudio": 8, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                5.804988662, 
+                6.176507937
+            ], 
+            "Label": "1-HANE_1--n9", 
+            "PerformedPitch": {
+                "Value": 167.0179901123047, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 9, 
+            "IndexInAudio": 9, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 185.228322, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "B4b1", 
+            "Interval": [
+                6.269387755, 
+                6.780226757
+            ], 
+            "Label": "1-HANE_1--n10", 
+            "PerformedPitch": {
+                "Value": 181.08541870117188, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 10, 
+            "IndexInAudio": 10, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 222.4460763, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "D5", 
+            "Interval": [
+                6.873106576, 
+                7.24462585
+            ], 
+            "Label": "1-HANE_1--n11", 
+            "PerformedPitch": {
+                "Value": 222.81353759765625, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 11, 
+            "IndexInAudio": 11, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 197.7454268, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "C5", 
+            "Interval": [
+                7.337505669, 
+                8.080544218
+            ], 
+            "Label": "1-HANE_1--n12", 
+            "PerformedPitch": {
+                "Value": 198.61898803710938, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 12, 
+            "IndexInAudio": 12, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 185.228322, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "B4b1", 
+            "Interval": [
+                8.126984127, 
+                8.312743764
+            ], 
+            "Label": "1-HANE_1--n13", 
+            "PerformedPitch": {
+                "Value": 182.02923583984375, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 13, 
+            "IndexInAudio": 13, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 185.228322, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "B4b1", 
+            "Interval": [
+                8.359183673, 
+                8.544943311
+            ], 
+            "Label": "1-HANE_1--n14", 
+            "PerformedPitch": {
+                "Value": 0.0, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 14, 
+            "IndexInAudio": 14, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 197.7454268, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "C5", 
+            "Interval": [
+                8.637823129, 
+                8.962902494
+            ], 
+            "Label": "1-HANE_1--n15", 
+            "PerformedPitch": {
+                "Value": 198.8486099243164, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 15, 
+            "IndexInAudio": 15, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 185.228322, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "B4b1", 
+            "Interval": [
+                9.009342404, 
+                9.102222222
+            ], 
+            "Label": "1-HANE_1--n16", 
+            "PerformedPitch": {
+                "Value": 186.6070556640625, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 16, 
+            "IndexInAudio": 16, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                9.195102041, 
+                9.287981859
+            ], 
+            "Label": "1-HANE_1--n17", 
+            "PerformedPitch": {
+                "Value": 167.9855194091797, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 17, 
+            "IndexInAudio": 17, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                9.380861678, 
+                10.12390023
+            ], 
+            "Label": "1-HANE_1--n18", 
+            "PerformedPitch": {
+                "Value": 167.59783935546875, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 18, 
+            "IndexInAudio": 18, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                10.17034014, 
+                10.4954195
+            ], 
+            "Label": "1-HANE_1--n19", 
+            "PerformedPitch": {
+                "Value": 166.53631591796875, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 19, 
+            "IndexInAudio": 19, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 222.4460763, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "D5", 
+            "Interval": [
+                10.58829932, 
+                11.93505669
+            ], 
+            "Label": "1-HANE_1--n20", 
+            "PerformedPitch": {
+                "Value": 223.19996643066406, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 20, 
+            "IndexInAudio": 20, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 222.4460763, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "D5", 
+            "Interval": [
+                11.9814966, 
+                12.21369615
+            ], 
+            "Label": "1-HANE_1--n21", 
+            "PerformedPitch": {
+                "Value": 224.49295043945312, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 21, 
+            "IndexInAudio": 21, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 222.4460763, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "D5", 
+            "Interval": [
+                12.26013605, 
+                12.4923356
+            ], 
+            "Label": "1-HANE_1--n22", 
+            "PerformedPitch": {
+                "Value": 225.92388916015625, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 22, 
+            "IndexInAudio": 22, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 222.4460763, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "D5", 
+            "Interval": [
+                12.58521542, 
+                13.69977324
+            ], 
+            "Label": "1-HANE_1--n23", 
+            "PerformedPitch": {
+                "Value": 223.0710906982422, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 23, 
+            "IndexInAudio": 23, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 250.2321174, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "E5", 
+            "Interval": [
+                13.83909297, 
+                14.02485261
+            ], 
+            "Label": "1-HANE_1--n24", 
+            "PerformedPitch": {
+                "Value": 254.61843872070312, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 24, 
+            "IndexInAudio": 24, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 263.6709572, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "F5", 
+            "Interval": [
+                14.11773243, 
+                14.25705215
+            ], 
+            "Label": "1-HANE_1--n25", 
+            "PerformedPitch": {
+                "Value": 261.6255798339844, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 25, 
+            "IndexInAudio": 25, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 250.2321174, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "E5", 
+            "Interval": [
+                14.30349206, 
+                14.39637188
+            ], 
+            "Label": "1-HANE_1--n26", 
+            "PerformedPitch": {
+                "Value": 256.9085693359375, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 26, 
+            "IndexInAudio": 26, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 222.4460763, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "D5", 
+            "Interval": [
+                14.4892517, 
+                14.76789116
+            ], 
+            "Label": "1-HANE_1--n27", 
+            "PerformedPitch": {
+                "Value": 225.2723388671875, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 27, 
+            "IndexInAudio": 27, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 197.7454268, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "C5", 
+            "Interval": [
+                14.81433107, 
+                14.95365079
+            ], 
+            "Label": "1-HANE_1--n28", 
+            "PerformedPitch": {
+                "Value": 199.0784149169922, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 28, 
+            "IndexInAudio": 28, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 185.228322, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "B4b1", 
+            "Interval": [
+                15.0000907, 
+                15.23229025
+            ], 
+            "Label": "1-HANE_1--n29", 
+            "PerformedPitch": {
+                "Value": 181.71408081054688, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 29, 
+            "IndexInAudio": 29, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 166.8279843, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "A4", 
+            "Interval": [
+                15.32517007, 
+                15.69668934
+            ], 
+            "Label": "1-HANE_1--n30", 
+            "PerformedPitch": {
+                "Value": 167.21104431152344, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 30, 
+            "IndexInAudio": 30, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 185.228322, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "B4b1", 
+            "Interval": [
+                15.78956916, 
+                16.20752834
+            ], 
+            "Label": "1-HANE_1--n31", 
+            "PerformedPitch": {
+                "Value": 183.71934509277344, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 31, 
+            "IndexInAudio": 31, 
+            "PitchTrajectory": "not_assigned"
+        }, 
+        {
+            "TheoreticalPitch": {
+                "Value": 197.7454268, 
+                "Unit": "Hz"
+            }, 
+            "Symbol": "C5", 
+            "Interval": [
+                16.30040816, 
+                17.22920635
+            ], 
+            "Label": "1-HANE_1--n32", 
+            "PerformedPitch": {
+                "Value": 198.04617309570312, 
+                "Unit": "Hz"
+            }, 
+            "IndexInScore": 32, 
+            "IndexInAudio": 32, 
+            "PitchTrajectory": "not_assigned"
+        }
+    ]
+}
