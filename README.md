@@ -29,21 +29,20 @@ The outputs are:
 ```python
 # pitch_corrected :	The octave corrected pitch track. The size is equal to the size of pitch
 # synth_pitch	  :	Synthetic pitch track from the notes input that is used for octave correction
-# notes			  : Updated list of notes with the pitch height converted to Hz from the theoretical
-#					pitch height wrt the tonic
+# newtonic		  : Updated tonic frequency according to the note model of the tonic
 ```
 
 Installation
 ============
 
-If you want to install alignednotemodels, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
+If you want to install the repository, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
 
     virtualenv env
     source env/bin/activate
     python setup.py install
 
 If you want to be able to edit files and have the changes be reflected, then
-install compmusic like this instead
+install the repository like this instead
 
     pip install -e .
 
