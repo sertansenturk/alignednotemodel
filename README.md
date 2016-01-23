@@ -4,15 +4,16 @@ Introduction
 ------------
 Python package to compute note models from note-level audio-score alignment.
 
-Currently the algorithm computes the stable pitch and a histogram for each aligned note.
+Currently the algorithm computes the stable pitch and a pitchdistribution of each aligned note.
 
 Usage
 =======
 
 ```python
-from alignedpitchfilter import alignedpitchfilter
+from alignednotemodel import alignednotemodel
 
-pitch_corrected, synth_pitch, notes = alignedpitchfilter.correctOctaveErrors(pitch, notes, tonic)
+noteModels, pitchDistibution, newTonic = alignednotemodel.getModels(pitch, alignednotes, 
+    tonicsymbol, kernel_width=7.5, step_size = 7.5)
 ```
 
 The inputs are:
@@ -20,16 +21,21 @@ The inputs are:
 # pitch 		  :	an n-by-2 matrix, where the values in the first column are 
 #					the timestamps and the values in the second column are frequency 
 #					values
-# notes			  :	list of note structure. This is read from the alignedNotes.json 
-#					output from [fragmentLinker](https://github.com/sertansenturk/fragmentLinker) repository 
-# tonic			  : The tonic frequency value
+# alignednotes	  :	the list of aligned notes. This is read from the alignedNotes.json 
+#					output from the fragmentLinker (https://github.com/sertansenturk/fragmentLinker) 
+#                   repository 
+# tonicsymbol	  : The tonic symbol in the symbTr format (e.g. B4b1)
+# kernel_width    : The width of the Gaussian kernel used to compute the pitch distribution 
+#                   (default: 7.5 cent ~ 1/3 Hc)
+# step_size       : The step size between each bin of the pitch distribution (default: 7.5 cent 
+#                   ~ 1/3 Hc)
 ```
 
 The outputs are:
 ```python
-# pitch_corrected :	The octave corrected pitch track. The size is equal to the size of pitch
-# synth_pitch	  :	Synthetic pitch track from the notes input that is used for octave correction
-# newtonic		  : Updated tonic frequency according to the note model of the tonic
+# noteModels        : The model for each note symbol
+# pitchDistribution	: The pitch distribution computed from the pitch input
+# newtonic		    : The updated tonic according to the note model of the tonic
 ```
 
 Installation
