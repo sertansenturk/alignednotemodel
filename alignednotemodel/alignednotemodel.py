@@ -3,7 +3,7 @@ import PitchDistribution
 import matplotlib.pyplot as plt
 import copy
 
-def getModels(pitch, alignednotes, tonic, tuning, kernel_width=2.5,
+def getModels(pitch, alignednotes, tonicSymbol, kernel_width=2.5,
         step_size = 7.5):
 
     pitch = np.array(pitch)
@@ -64,10 +64,10 @@ def getModels(pitch, alignednotes, tonic, tuning, kernel_width=2.5,
             nn['trajectory'] = nn['trajectory'].tolist()
 
     # the tonic might be updated
-    newtonicfreq = noteModels[tuning['tonicSymbol']]['stablepitch']['Value']
+    newtonicfreq = noteModels[tonicSymbol]['stablepitch']['Value']
     newtonic = {'alignment': {'Value': newtonicfreq, 'Unit': 'Hz', 
-                'Method': 'alignedNoteModel', 'OctaveWrapped': False, 
-                'Citation': 'SenturkPhDThesis'}}
+                'Symbol':tonicSymbol, 'Method': 'alignedNoteModel', 
+                'OctaveWrapped': False, 'Citation': 'SenturkPhDThesis'}}
 
     # get the distances wrt tonic
     for nm in noteModels.values():
@@ -87,7 +87,7 @@ def getModelDistribution(pitchVals, kernel_width=2.5, step_size = 7.5):
 
     return distribution
 
-def plot(noteModels, pitchDistibution, alignednotes, pitch, tonic):
+def plot(noteModels, pitchDistibution, alignednotes, pitch):
     pitch = np.array(pitch)
 
     fig, (ax1, ax2) = plt.subplots(1,2,sharey=True)
