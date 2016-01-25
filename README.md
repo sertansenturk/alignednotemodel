@@ -1,7 +1,5 @@
 # aligned-note-models
 
-Introduction
-------------
 Python package to compute note models from note-level audio-score alignment.
 
 Currently the algorithm computes the stable pitch and a pitchdistribution of each aligned note.
@@ -58,7 +56,7 @@ Now you can install the rest of the dependencies:
 
 Authors
 -------
-Sertan Senturk
+Sertan Şentürk
 contact@sertansenturk.com
 
 Reference
