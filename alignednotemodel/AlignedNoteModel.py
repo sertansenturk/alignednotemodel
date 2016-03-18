@@ -1,23 +1,36 @@
-import numpy as np
 from modetonicestimation.PitchDistribution import PitchDistribution
 from modetonicestimation.Converter import Converter
+import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
+import os
+import json
 
 
 class AlignedNoteModel(object):
-    def __init__(self, kernel_width=7.5, step_size=7.5):
+    def __init__(self, kernel_width=7.5, step_size=7.5, pitch_threshold=50):
         self.kernel_width = kernel_width
         self.step_size = step_size
+        self.pitch_threshold = pitch_threshold  # max threshold for two
+        # pitches to be considered close. Used in stable pitch computation
 
     def get_models(self, pitch, alignednotes, tonic_symbol):
+        note_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 'data', 'note_dict.json')
+        note_dict = json.load(open(note_file, 'r'))
+
         pitch = np.array(pitch)
         alignednotes_ext = deepcopy(alignednotes)
 
         note_names = set(an['Symbol'] for an in alignednotes_ext)
-        note_models = dict((nn, {'notes': [], 'distribution': [],
-                                 'stable_pitch': [], 'interval': []})
-                           for nn in note_names)
+        note_models = dict((
+            nn, {'notes': [], 'distribution': [], 'stable_pitch': [],
+                 'performed_interval': [],
+                 'theoretical_interval': {
+                     'Value': (note_dict[nn]['Value'] -
+                               note_dict[tonic_symbol]['Value']),
+                     'Unit': 'cent'},
+                 'theoretical_pitch': []}) for nn in note_names)
 
         # compute note trajectories and add to each model
         for an in alignednotes_ext:
@@ -42,14 +55,15 @@ class AlignedNoteModel(object):
         tonic_trajectories = [nn['PitchTrajectory'][:, 1]
                               for nn in note_models[tonic_symbol]['notes']]
         temp_tonic_freq = self._get_stablepitch_distribution(
-            tonic_trajectories)[0]
+            tonic_trajectories,
+            note_models[tonic_symbol]['theoretical_interval']['Value'])[0]
 
         # compute the histogram for each model
         for nm in note_models.values():
-            note_trajectories = [nn['PitchTrajectory'][:, 1]
-                                 for nn in nm['notes']]
             peak_freq, distribution = self._get_stablepitch_distribution(
-                note_trajectories, ref_freq=temp_tonic_freq)
+                [nn['PitchTrajectory'][:, 1] for nn in nm['notes']],
+                nm['theoretical_interval']['Value'],
+                ref_freq=temp_tonic_freq)
 
             nm['stable_pitch'] = {'Value': peak_freq, 'Unit': 'Hz'}
             nm['distribution'] = distribution
@@ -64,7 +78,7 @@ class AlignedNoteModel(object):
         for nm in note_models.values():
             interval = Converter.hz_to_cent(nm['stable_pitch']['Value'],
                                             temp_tonic_freq)
-            nm['interval'] = {'Value': interval, 'Unit': 'cent'}
+            nm['performed_interval'] = {'Value': interval, 'Unit': 'cent'}
 
         # compute the complete histogram without normalization
         recording_distribution = PitchDistribution.from_hz_pitch(
@@ -81,7 +95,8 @@ class AlignedNoteModel(object):
 
         return note_models, recording_distribution, newtonic
 
-    def _get_stablepitch_distribution(self, note_trajectories, ref_freq=None):
+    def _get_stablepitch_distribution(self, note_trajectories,
+                                      theoretical_interval, ref_freq=None):
         temp_pitch_vals = np.hstack(nn for nn in note_trajectories)
 
         # useful to keep the bins coinciding with a desired value,
@@ -93,13 +108,29 @@ class AlignedNoteModel(object):
             temp_pitch_vals, ref_freq=ref_freq,
             smooth_factor=self.kernel_width, step_size=self.step_size,
             norm_type=None)
-        distribution.cent_to_hz()
 
         # get the stable pitch as the highest peaks among the peaks close to
         # the theoretical pitch TODO
         peaks = distribution.detect_peaks()
-        peak_id = peaks[0][np.argmax(peaks[1])]
-        peak_freq = distribution.bins[peak_id]
+        peak_bins = distribution.bins[peaks[0]]
+        peak_vals = distribution.vals[peaks[0]]
+
+        try:
+            cand_bool = (abs(peak_bins - theoretical_interval) <
+                         self.pitch_threshold)
+            stable_pitch_cand = peak_bins[cand_bool]
+            cand_occr = peak_vals[cand_bool]
+
+            peak_cent = stable_pitch_cand[np.argmax(cand_occr)]
+
+            # convert to hz scale
+            peak_freq = Converter.cent_to_hz(peak_cent, ref_freq)
+        except ValueError:  # no stable pitch in the vicinity, probably a
+            # misalignment
+            peak_freq = None
+
+        # convert to hz scale
+        distribution.cent_to_hz()
 
         return peak_freq, distribution
 
@@ -171,7 +202,7 @@ class AlignedNoteModel(object):
             [nm['stable_pitch']['Value'] for nm in note_models.values()])
         ax2.set_yticklabels(
             [key + ', ' + "%.1f" % val['stable_pitch']['Value'] +
-             ' Hz, ' + "%.1f" % val['interval']['Value'] + ' cents'
+             ' Hz, ' + "%.1f" % val['performed_interval']['Value'] + ' cents'
              for key, val in note_models.iteritems()])
         ax2.axis('off')
         ax2.set_ylim([np.min(pitch_distribution.bins),
