@@ -106,7 +106,7 @@ class AlignedNoteModel(object):
     @staticmethod
     def _get_median_pitch(pitch):
         if pitch.ndim > 1:
-            pitch = pitch[:,1]
+            pitch = pitch[:, 1]
 
         # filter the nan, inf and inaudible
         pitch = pitch[~np.isnan(pitch)]
@@ -126,9 +126,6 @@ class AlignedNoteModel(object):
         ini_max_val = max(recording_distribution.vals)
         fin_max_val = max(dist_norm.vals)
         norm_factor = fin_max_val / ini_max_val
-
-        print ini_max_val
-        print fin_max_val
 
         for nm in note_models.values():
             nm['distribution'].vals *= norm_factor
@@ -165,7 +162,7 @@ class AlignedNoteModel(object):
                 'r', alpha=0.4, linewidth=4)
 
         ax2.plot(pitch_distribution.vals, pitch_distribution.bins, '-.',
-                 color='#606060')
+                 color='#000000', alpha=0.9)
         for key in note_models.keys():
             ax2.plot(note_models[key]['distribution']['vals'],
                      note_models[key]['distribution']['bins'], label=key)
