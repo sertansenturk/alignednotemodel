@@ -10,9 +10,9 @@ setup(name='aligned-note-models',
       description='Tools to compute models for notes from audio-score alignment results',
       url='http://sertansenturk.com',
       packages=['alignednotemodel'],
+      include_package_data=True,
       install_requires=[
           "numpy",
           "matplotlib"
       ],
 )
-
