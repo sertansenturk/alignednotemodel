@@ -6,12 +6,13 @@ import copy
 
 
 class AlignedNoteModel(object):
-    def __init__(self, kernel_width=2.5, step_size=7.5):
+    def __init__(self, kernel_width=7.5, step_size=7.5):
         self.kernel_width = kernel_width
         self.step_size = step_size
 
     def get_models(self, pitch, alignednotes, tonic_symbol):
         pitch = np.array(pitch)
+        median_pitch = self._get_median_pitch(pitch)
         alignednotes_ext = copy.deepcopy(alignednotes)
 
         note_names = set(an['Symbol'] for an in alignednotes_ext)
@@ -20,7 +21,10 @@ class AlignedNoteModel(object):
                            for nn in note_names)
 
         # get the complete histogram
-        recording_distribution = self._get_model_distribution(pitch[:, 1])
+        recording_distribution = PitchDistribution.from_hz_pitch(
+            pitch, ref_freq=median_pitch, smooth_factor=self.kernel_width,
+            step_size=self.step_size)
+        recording_distribution.cent_to_hz()
 
         # compute note trajectories and add to each model
         for an in alignednotes_ext:
@@ -43,9 +47,12 @@ class AlignedNoteModel(object):
             temp_pitch_vals = np.hstack(nn['trajectory'][:, 1]
                                         for nn in note_models[key]['notes'])
 
-            distribution = self._get_model_distribution(
-                temp_pitch_vals, kernel_width=self.kernel_width,
-                step_size=self.step_size)
+            temp_median_pitch = self._get_median_pitch(temp_pitch_vals)
+            distribution = PitchDistribution.from_hz_pitch(
+                temp_pitch_vals, ref_freq=temp_median_pitch,
+                smooth_factor=self.kernel_width, step_size=self.step_size)
+
+            distribution.cent_to_hz()
 
             # get the stable pitch
             peaks = distribution.detect_peaks()
@@ -83,19 +90,22 @@ class AlignedNoteModel(object):
         for nm in note_models.values():
             interval = Converter.hz_to_cent(nm['stablepitch']['Value'],
                                             newtonicfreq)
-            nm['interval'] = {'Value': interval[0], 'Unit': 'cent'}
+
+            nm['interval'] = {'Value': interval, 'Unit': 'cent'}
 
         return note_models, recording_distribution, newtonic
 
     @staticmethod
-    def _get_model_distribution(pitch_vals, kernel_width=2.5, step_size=7.5):
-        dummy_freq = 440.0
-        distribution = PitchDistribution.from_hz_pitch(
-            pitch_vals, ref_freq=dummy_freq, smooth_factor=kernel_width,
-            step_size=step_size)
-        distribution.cent_to_hz()
+    def _get_median_pitch(pitch):
+        if pitch.ndim > 1:
+            pitch = pitch[:,1]
 
-        return distribution
+        # filter the nan, inf and inaudible
+        pitch = pitch[~np.isnan(pitch)]
+        pitch = pitch[~np.isinf(pitch)]
+        pitch = pitch[pitch >= 20.0]
+
+        return np.median(pitch)
 
     @staticmethod
     def plot(note_models, pitch_distribution, alignednotes, pitch):
