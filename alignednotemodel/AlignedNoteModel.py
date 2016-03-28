@@ -150,8 +150,8 @@ class AlignedNoteModel(object):
     def _normalize_distributions(recording_distribution, note_models):
         dist_norm = deepcopy(recording_distribution)
 
-        # area normalization on the audio recording
-        dist_norm.normalize(norm_type='area')
+        # sum normalization on the audio recording
+        dist_norm.normalize(norm_type='sum')
 
         # compute the normalization factor
         ini_max_val = max(recording_distribution.vals)
