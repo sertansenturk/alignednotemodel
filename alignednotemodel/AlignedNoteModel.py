@@ -70,8 +70,8 @@ class AlignedNoteModel(object):
 
         # update the new tonic frequency
         newtonic = {'alignment': {
-            'Value': note_models[tonic_symbol]['stable_pitch']['Value'], 'Unit': 'Hz',
-            'Symbol': tonic_symbol, 'Method': 'alignedNoteModel',
+            'Value': note_models[tonic_symbol]['stable_pitch']['Value'],
+            'Unit': 'Hz', 'Symbol': tonic_symbol, 'Method': 'alignedNoteModel',
             'OctaveWrapped': False, 'Citation': 'SenturkPhDThesis',
             'Procedure': 'Tonic identified from the tonic note model obtained '
                          'from audio-score alignment'}}
