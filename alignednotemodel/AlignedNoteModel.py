@@ -73,8 +73,8 @@ class AlignedNoteModel(object):
             'Value': note_models[tonic_symbol]['stable_pitch']['Value'], 'Unit': 'Hz',
             'Symbol': tonic_symbol, 'Method': 'alignedNoteModel',
             'OctaveWrapped': False, 'Citation': 'SenturkPhDThesis',
-            'Procedure':'Tonic identified from the tonic note model obtained '
-                        'from audio-score alignment'}}
+            'Procedure': 'Tonic identified from the tonic note model obtained '
+                         'from audio-score alignment'}}
 
         # get the distances wrt tonic
         for nm in note_models.values():
