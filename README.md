@@ -11,8 +11,8 @@ Usage
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 alignedNoteModel = AlignedNoteModel(kernel_width=7.5, step_size=7.5, pitch_threshold=50)
 
-noteModels, pitchDistibution, newTonic = alignedNoteModel.get_models(pitch, alignednotes,
-    tonicSymbol)
+note_models, pitch_distibution, new_tonic = alignedNoteModel.get_models(pitch, aligned_notes,
+    tonic_symbol)
 ```
 
 Instantiation parameters are:
@@ -30,17 +30,17 @@ The inputs for the get_models method are:
 # pitch 		  :	an n-by-2 matrix, where the values in the first column are 
 #					the timestamps and the values in the second column are frequency 
 #					values
-# alignednotes	  :	the list of aligned notes. This is read from the alignedNotes.json 
+# aligned_notes	  :	the list of aligned notes. This is read from the alignedNotes.json 
 #					output from the fragmentLinker (https://github.com/sertansenturk/fragmentLinker) 
 #                   repository 
-# tonicsymbol	  : The tonic symbol in the symbTr format (e.g. B4b1)
+# tonic_symbol	  : The tonic symbol in the symbTr format (e.g. B4b1)
 ```
 
 The outputs are:
 ```python
-# noteModels        : The model for each note symbol
-# pitchDistribution	: The pitch distribution computed from the pitch input
-# newtonic		    : The updated tonic according to the note model of the tonic symbol
+# note_models        : The model for each note symbol
+# pitch_distribution : The pitch distribution computed from the pitch input
+# new_tonic		     : The updated tonic according to the note model of the tonic symbol
 ```
 
 Installation
