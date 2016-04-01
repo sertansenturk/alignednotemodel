@@ -1,5 +1,5 @@
 #### alignednotemodel v1.1
- - Refactorings to improve code quality, readability and functionalty
+ - Refactorings to improve code quality, readability and functionality
 
 #### alignednotemodel v1.0
  - First public release
