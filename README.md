@@ -43,6 +43,8 @@ The outputs are:
 # new_tonic		     : The updated tonic according to the note model of the tonic symbol
 ```
 
+Please refer to [note_model.ipynb](https://github.com/sertansenturk/alignednotemodel/blob/master/note_model.ipynb) for an interactive demo.
+
 Installation
 ============
 
