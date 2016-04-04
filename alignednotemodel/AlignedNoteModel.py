@@ -92,9 +92,6 @@ class AlignedNoteModel(object):
         recording_distribution, note_models = self._normalize_distributions(
             recording_distribution, note_models)
 
-        # type conversions for json serialization
-        note_models = self._serialize_for_json(note_models)
-
         return note_models, recording_distribution, newtonic
 
     def _get_stablepitch_distribution(self, note_trajectories,
@@ -166,7 +163,7 @@ class AlignedNoteModel(object):
         return dist_norm, note_models
 
     @staticmethod
-    def _serialize_for_json(note_models):
+    def to_json(note_models, json_path = None):
         # conversions for json serialization
         note_models_ser = deepcopy(note_models)
         for nm in note_models_ser.values():
@@ -176,7 +173,11 @@ class AlignedNoteModel(object):
             # convert the pitchtrajectories to lists from numpy arrays
             for nn in nm['notes']:
                 nn['PitchTrajectory'] = nn['PitchTrajectory'].tolist()
-        return note_models_ser
+
+        if json_path is None:
+            return json.dumps(note_models_ser, indent=4)
+        else:
+            json.dump(note_models_ser, open(json_path, 'w'))
 
     @staticmethod
     def plot(note_models, pitch_distribution, alignednotes, pitch):
@@ -197,8 +198,8 @@ class AlignedNoteModel(object):
         ax2.plot(pitch_distribution.vals, pitch_distribution.bins, '-.',
                  color='#000000', alpha=0.9)
         for key in note_models.keys():
-            ax2.plot(note_models[key]['distribution']['vals'],
-                     note_models[key]['distribution']['bins'], label=key)
+            ax2.plot(note_models[key]['distribution'].vals,
+                     note_models[key]['distribution'].bins, label=key)
 
         ax2.set_yticks(
             [nm['stable_pitch']['Value'] for nm in note_models.values()])
