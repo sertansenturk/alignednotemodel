@@ -168,7 +168,7 @@ class AlignedNoteModel(object):
         return dist_norm, note_models
 
     @staticmethod
-    def to_json(note_models, json_path = None):
+    def to_json(note_models, json_path=None):
         # conversions for json serialization
         note_models_ser = deepcopy(note_models)
         for nm in note_models_ser.values():
