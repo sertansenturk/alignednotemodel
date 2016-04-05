@@ -79,8 +79,13 @@ class AlignedNoteModel(object):
         # get the distances wrt tonic
         for nm in note_models.values():
             interval = Converter.hz_to_cent(nm['stable_pitch']['Value'],
-                                            temp_tonic_freq)
+                                            newtonic['alignment']['Value'])
             nm['performed_interval'] = {'Value': interval, 'Unit': 'cent'}
+
+            theo_pitch = Converter.cent_to_hz(
+                nm['theoretical_interval']['Value'],
+                newtonic['alignment']['Value'])
+            nm['theoretical_pitch'] = {'Value': theo_pitch, 'Unit': 'Hz'}
 
         # compute the complete histogram without normalization
         recording_distribution = PitchDistribution.from_hz_pitch(
@@ -177,7 +182,7 @@ class AlignedNoteModel(object):
         if json_path is None:
             return json.dumps(note_models_ser, indent=4)
         else:
-            json.dump(note_models_ser, open(json_path, 'w'))
+            json.dump(note_models_ser, open(json_path, 'w'), indent=4)
 
     @staticmethod
     def plot(note_models, pitch_distribution, alignednotes, pitch):
