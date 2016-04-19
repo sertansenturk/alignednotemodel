@@ -50,14 +50,7 @@ class AlignedNoteModel(object):
             note_models[tonic_symbol]['theoretical_interval']['Value'])[0]
 
         # compute the histogram for each model
-        for nm in note_models.values():
-            peak_freq, distribution = self._get_stablepitch_distribution(
-                [nn['PitchTrajectory'][:, 1] for nn in nm['notes']],
-                nm['theoretical_interval']['Value'],
-                ref_freq=temp_tonic_freq)
-
-            nm['stable_pitch'] = {'Value': peak_freq, 'Unit': 'Hz'}
-            nm['distribution'] = distribution
+        self._get_note_histogram(note_models, temp_tonic_freq)
 
         # update the new tonic frequency
         newtonic = {'alignment': {
@@ -81,6 +74,16 @@ class AlignedNoteModel(object):
             recording_distribution, note_models)
 
         return note_models, recording_distribution, newtonic
+
+    def _get_note_histogram(self, note_models, temp_tonic_freq):
+        for nm in note_models.values():
+            peak_freq, distribution = self._get_stablepitch_distribution(
+                [nn['PitchTrajectory'][:, 1] for nn in nm['notes']],
+                nm['theoretical_interval']['Value'],
+                ref_freq=temp_tonic_freq)
+
+            nm['stable_pitch'] = {'Value': peak_freq, 'Unit': 'Hz'}
+            nm['distribution'] = distribution
 
     def _get_tunings(self, newtonic, note_models):
         for nm in note_models.values():

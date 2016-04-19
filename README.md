@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sertansenturk/alignednotemodel.svg?branch=master)](https://travis-ci.org/sertansenturk/alignednotemodel) [![Code Climate](https://codeclimate.com/github/sertansenturk/alignednotemodel/badges/gpa.svg)](https://codeclimate.com/github/sertansenturk/alignednotemodel)
+
 # alignednotemodels
 
 Python tools to compute note models from note-level audio-score alignment.
