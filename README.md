@@ -8,7 +8,7 @@ Usage
 =======
 
 ```python
-from alignednotemodel.AlignedNoteModel import AlignedNoteModel
+from alignednotemodel.alignednotemodel import AlignedNoteModel
 alignedNoteModel = AlignedNoteModel(kernel_width=7.5, step_size=7.5, pitch_threshold=50)
 
 note_models, pitch_distribution, new_tonic = alignedNoteModel.get_models(pitch, aligned_notes,

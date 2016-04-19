@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='alignednotemodel',
-      version='1.1',
+      version='1.1.0',
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
       license='agpl 3.0',
