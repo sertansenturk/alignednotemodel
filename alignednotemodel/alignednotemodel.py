@@ -1,5 +1,5 @@
-from modetonicestimation.PitchDistribution import PitchDistribution
-from modetonicestimation.Converter import Converter
+from morty.PitchDistribution import PitchDistribution
+from morty.Converter import Converter
 import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
