@@ -1,5 +1,5 @@
-from morty.PitchDistribution import PitchDistribution
-from morty.Converter import Converter
+from morty.pitchdistribution import PitchDistribution
+from morty.converter import Converter
 import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
