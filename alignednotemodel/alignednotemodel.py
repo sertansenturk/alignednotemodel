@@ -85,7 +85,8 @@ class AlignedNoteModel(object):
             nm['stable_pitch'] = {'Value': peak_freq, 'Unit': 'Hz'}
             nm['distribution'] = distribution
 
-    def _get_tunings(self, newtonic, note_models):
+    @staticmethod
+    def _get_tunings(newtonic, note_models):
         for nm in note_models.values():
             interval = Converter.hz_to_cent(nm['stable_pitch']['Value'],
                                             newtonic['alignment']['Value'])
@@ -96,13 +97,14 @@ class AlignedNoteModel(object):
                 newtonic['alignment']['Value'])
             nm['theoretical_pitch'] = {'Value': theo_pitch, 'Unit': 'Hz'}
 
-    def _remove_unaligned_notes(self, note_models):
+    @staticmethod
+    def _remove_unaligned_notes(note_models):
         for key in note_models.keys():
             if not note_models[key]['notes']:
                 note_models.pop(key, None)
 
-    def _distribute_pitch_trajectories(self, alignednotes_ext, note_models,
-                                       pitch):
+    @staticmethod
+    def _distribute_pitch_trajectories(alignednotes_ext, note_models, pitch):
         for an in alignednotes_ext:
             if not an['Interval'][0] == an['Interval'][1]:  # not aligned
                 trajectory = np.vstack(
