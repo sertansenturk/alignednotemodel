@@ -65,7 +65,7 @@ class AlignedNoteModel(object):
 
         # compute the complete histogram without normalization
         recording_distribution = PitchDistribution.from_hz_pitch(
-            pitch, ref_freq=temp_tonic_freq, smooth_factor=self.kernel_width,
+            pitch, ref_freq=temp_tonic_freq, kernel_width=self.kernel_width,
             step_size=self.step_size, norm_type=None)
         recording_distribution.cent_to_hz()
 
@@ -126,7 +126,7 @@ class AlignedNoteModel(object):
 
         distribution = PitchDistribution.from_hz_pitch(
             temp_pitch_vals, ref_freq=ref_freq,
-            smooth_factor=self.kernel_width, step_size=self.step_size,
+            kernel_width=self.kernel_width, step_size=self.step_size,
             norm_type=None)
 
         # get the stable pitch as the highest peaks among the peaks close to
