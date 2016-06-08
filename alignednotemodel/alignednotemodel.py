@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from copy import deepcopy
 import os
 import json
+import logging
+logging.basicConfig(level=logging.INFO)
 
 
 class AlignedNoteModel(object):
@@ -23,14 +25,18 @@ class AlignedNoteModel(object):
         alignednotes_ext = deepcopy(alignednotes)
 
         note_names = set(an['Symbol'] for an in alignednotes_ext)
-        note_models = dict((
-            nn, {'notes': [], 'distribution': [], 'stable_pitch': [],
-                 'performed_interval': [],
-                 'theoretical_interval': {
-                     'Value': (note_dict[nn]['Value'] -
-                               note_dict[tonic_symbol]['Value']),
-                     'Unit': 'cent'},
-                 'theoretical_pitch': []}) for nn in note_names)
+        note_models = {}
+        for nn in note_names:
+            try:
+                note_models[nn] = {
+                    'notes': [], 'distribution': [], 'stable_pitch': [],
+                    'performed_interval': [], 'theoretical_interval': {
+                        'Value': (note_dict[nn]['Value'] -
+                                  note_dict[tonic_symbol]['Value']),
+                        'Unit': 'cent'}, 'theoretical_pitch': []}
+            except KeyError:
+                logging.warning(
+                    u"The note {0:s} is not in the note_dict.".format(nn))
 
         # compute note trajectories and add to each model
         self._distribute_pitch_trajectories(alignednotes_ext, note_models,
@@ -113,7 +119,11 @@ class AlignedNoteModel(object):
                 notetemp = dict(an)
                 notetemp['PitchTrajectory'] = trajectory
 
-                note_models[an['Symbol']]['notes'].append(notetemp)
+                try:
+                    note_models[an['Symbol']]['notes'].append(notetemp)
+                except KeyError:
+                    logging.info(u"The note {0:s} is not in the note_dict."
+                                 u"".format(an['Symbol']))
 
     def _get_stablepitch_distribution(self, note_trajectories,
                                       theoretical_interval, ref_freq=None):
