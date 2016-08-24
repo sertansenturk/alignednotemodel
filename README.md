@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sertansenturk/alignednotemodel.svg?branch=master)](https://travis-ci.org/sertansenturk/alignednotemodel) [![Code Climate](https://codeclimate.com/github/sertansenturk/alignednotemodel/badges/gpa.svg)](https://codeclimate.com/github/sertansenturk/alignednotemodel) [![DOI](https://zenodo.org/badge/21104/sertansenturk/alignednotemodel.svg)](https://zenodo.org/badge/latestdoi/21104/sertansenturk/alignednotemodel)
+[![Build Status](https://travis-ci.org/sertansenturk/alignednotemodel.svg?branch=master)](https://travis-ci.org/sertansenturk/alignednotemodel) [![Code Climate](https://codeclimate.com/github/sertansenturk/alignednotemodel/badges/gpa.svg)](https://codeclimate.com/github/sertansenturk/alignednotemodel) [![GitHub version](https://badge.fury.io/gh/sertansenturk%2Falignednotemodel.svg)](https://badge.fury.io/gh/sertansenturk%2Falignednotemodel) [![DOI](https://zenodo.org/badge/21104/sertansenturk/alignednotemodel.svg)](https://zenodo.org/badge/latestdoi/21104/sertansenturk/alignednotemodel)
 
 # alignednotemodels
 
